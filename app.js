@@ -12,10 +12,22 @@ GAME RULES:
 var scores = [0,0];
 var roundScore = 0;
 var activePlayer = 1;
-var dice = Math.floor(Math.random()*6) +1;
-console.log(dice);
-
-document.querySelector('#current-' + activePlayer).textContent = dice;
+// var dice = Math.floor(Math.random()*6) +1;
+// console.log(dice);
+var x = document.querySelector('#score-0').textContent;
+console.log(x);
+// document.querySelector('#current-' + activePlayer).textContent = dice;
 // document.querySelector('#current-' + activePlayer).innerHTML = '<em>' + dice + "</em>"
 
 document.querySelector('.dice').style.display = 'none';
+
+document.querySelector('.btn-roll').addEventListener('click', function(){
+    //get random number
+   var dice = Math.floor(Math.random()*6)+1;
+    //display result
+    var diceDOM = document.querySelector('.dice')
+    diceDOM.style.display = 'block';
+    diceDOM.src = 'dice-' + dice + '.png';
+
+    //update the round score if the rolled number was not a 1
+});
