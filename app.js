@@ -12,19 +12,28 @@ var globalScore = 0;
 var scores = [0, 0];
 var roundScore = 0;
 var activePlayer = 0;
-// var dice = Math.floor(Math.random()*6) +1;
-// console.log(dice);
-// var x = document.querySelector('#score-0').textContent;
-// console.log(x);
-// document.querySelector('#current-' + activePlayer).textContent = dice;
-// document.querySelector('#current-' + activePlayer).innerHTML = '<em>' + dice + "</em>"
+
+
+function nextPlayer() {
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+    roundScore = 0;
+
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+
+    document.querySelector('.player-0-panel').classList.toggle('active');
+    document.querySelector('.player-1-panel').classList.toggle('active');
+    document.querySelector('.dice').style.display = 'none';
+};
+
+
 
 document.getElementById('score-0').textContent = '0'
 document.getElementById('score-1').textContent = '0'
 document.getElementById('current-0').textContent = '0'
 document.getElementById('current-1').textContent = '0'
-
 document.querySelector('.dice').style.display = 'none';
+
 
 document.querySelector('.btn-roll').addEventListener('click', function () {
     //get random number
@@ -40,42 +49,45 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
         document.querySelector('#current-' + activePlayer).textContent = roundScore;
 
     } else {
-        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-        roundScore = 0;
 
-        document.getElementById('current-0').textContent = '0';
-        document.getElementById('current-1').textContent = '0';
-        document.querySelector('.player-0-panel').classList.toggle('active');
-        document.querySelector('.player-1-panel').classList.toggle('active');
-        // document.querySelector('.dice').style.display = 'none';
-
+        nextPlayer()
     }
 
 });
+//check if player won the game//
 
 document.querySelector('.btn-hold').addEventListener('click', function () {
-    // var dice = Math.floor(Math.random()*6)+1;
+
     scores[activePlayer] += roundScore;
     document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
-    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
-    roundScore = 0;
-    // globalScore += dice;
 
+    if (scores[activePlayer] >= 100) {
+        document.querySelector('#name-' + activePlayer).innerHTML = '<strong>' + 'WINNER!!!!!!!!!' + '<strong>';
+        document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+        document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+    }
 
-    //     document.getElementById('current-0').textContent = '0';
-    //     document.getElementById('current-1').textContent = '0';
-    //     document.querySelector('.player-0-panel').classList.toggle('active');
-    //     document.querySelector('.player-1-panel').classList.toggle('active');
+    nextPlayer()
 
-    //add current score to global score//
-    //update UI//
+});
 
-    document.getElementById('current-0').textContent = '0';
-    document.getElementById('current-1').textContent = '0';
+document.querySelector('.btn-new').addEventListener('click', function () {
 
+    document.getElementById('score-0').textContent = '0'
+    document.getElementById('score-1').textContent = '0'
+    document.getElementById('current-0').textContent = '0'
+    document.getElementById('current-1').textContent = '0'
+    document.querySelector('.dice').style.display = 'none';
     document.querySelector('.player-0-panel').classList.toggle('active');
     document.querySelector('.player-1-panel').classList.toggle('active');
-    document.querySelector('.dice').style.display = 'none';
 
-    //check if player won the game//
-});
+})
+
+
+
+// var dice = Math.floor(Math.random()*6) +1;
+// console.log(dice);
+// var x = document.querySelector('#score-0').textContent;
+// console.log(x);
+// document.querySelector('#current-' + activePlayer).textContent = dice;
+// document.querySelector('#current-' + activePlayer).innerHTML = '<em>' + dice + "</em>"
